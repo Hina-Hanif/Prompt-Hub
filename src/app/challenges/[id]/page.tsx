@@ -132,17 +132,34 @@ const challenges = [
     { id: 10, title: "Multi-Step Planning", category: "Complex Prompts", difficulty: "Expert", description: "Make the AI plan multi-step projects or decisions logically.", objective: "Write a prompt that asks the AI to plan a 5-day marketing campaign for a startup launching a new product.", tips: [ "Define clear stages or milestones", "Ask for timelines and responsibilities", "Request summaries or deliverables per step", ], xp: 350, }, { id: 11, title: "Fact Verification",
     category: "Critical Thinking", difficulty: "Expert", description: "Encourage the AI to check or verify facts before answering.", objective: "Write a prompt that instructs the AI to verify historical claims before summarizing them for a report.", tips: [ "Ask AI to cite or cross-check information", "Encourage self-evaluation ('Is this accurate?')", "Request confidence scores or disclaimers", ], xp: 350, }, { id: 12, title: "Prompt Optimization", category: "Meta-Prompting", difficulty: "Expert", description: "Make the AI help you improve your own prompts.", objective: "Write a prompt that asks the AI to evaluate your prompt and suggest improvements in clarity, context, and tone.", tips: [ "Ask for structured critique (strengths, issues, fixes)", "Include scoring system or criteria", "Use for iterative prompt improvement", ], xp: 400, },// 🧮 EXPERT { id: 10, title: "Multi-Step Planning",
 ];
+interface Challenge {
+  id: number;
+  title: string;
+  category: string;
+  difficulty: string;
+  description: string;
+  objective: string;
+  tips: string[];
+  xp: number;
+}
+interface Feedback {
+  score: number;
+  feedback: string;
+  strengths: string[];
+  improvements: string[];
+}
+
 
 export default function ChallengeDetail() {
   const { id } = useParams();
-  const [challengeData, setChallengeData] = useState<any>(null);
+  const [challengeData, setChallengeData] = useState<Challenge | null>(null);
   const [prompt, setPrompt] = useState("");
-  const [feedback, setFeedback] = useState<any>(null);
+  const [feedback, setFeedback] = useState<Feedback | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const found = challenges.find((c) => c.id === Number(id));
-    setChallengeData(found);
+    setChallengeData(found || null);
   }, [id]);
 
   if (!challengeData) {
@@ -168,7 +185,7 @@ export default function ChallengeDetail() {
         }),
       });
 
-      const data = await res.json();
+      const data: Feedback = await res.json();
       setFeedback(data);
 
       // Step 2️⃣: Save completion + XP to Supabase

@@ -5,9 +5,17 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY, // ✅ must be set in .env.local
 });
 
+// Define the expected request body type
+interface ScoreRequestBody {
+  prompt: string;
+  challenge?: string;
+}
+
 export async function POST(req: Request) {
   try {
-    const { prompt, challenge } = await req.json();
+    const body: ScoreRequestBody = await req.json();
+
+    const { prompt, challenge } = body;
 
     if (!prompt) {
       return NextResponse.json(
@@ -50,10 +58,13 @@ export async function POST(req: Request) {
     };
 
     return NextResponse.json(result);
-  } catch (error: any) {
-    console.error("Error in /api/score:", error.message);
+  } catch (error: unknown) {
+    // Properly type the error
+    const message =
+      error instanceof Error ? error.message : String(error);
+    console.error("Error in /api/score:", message);
     return NextResponse.json(
-      { error: "Evaluation failed. " + error.message },
+      { error: "Evaluation failed. " + message },
       { status: 500 }
     );
   }

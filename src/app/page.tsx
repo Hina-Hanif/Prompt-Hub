@@ -3,10 +3,16 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { supabase } from "@/utils/supabase";
+import type { User } from "@supabase/supabase-js"; // Import Supabase User type
+
+interface Profile {
+  username: string;
+}
 
 export default function Home() {
-  const [user, setUser] = useState<any>(null);
-  const [profile, setProfile] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
+  const [profile, setProfile] =  useState<Profile | null>(null);
+
 
   useEffect(() => {
     const getUser = async () => {
@@ -22,7 +28,7 @@ export default function Home() {
           .single();
 
         if (profileData) {
-          setProfile(profileData);
+          setProfile(profileData as Profile);
         }
       }
     };
@@ -40,7 +46,7 @@ export default function Home() {
             .single();
 
           if (profileData) {
-            setProfile(profileData);
+            setProfile(profileData as Profile);
           }
         } else {
           setProfile(null);
