@@ -178,45 +178,50 @@ export default function Home() {
         </section>
 
         {/* Features */}
-        <section className="py-20 bg-gray-950">
-          <div className="container">
-            <h2 className="text-4xl font-bold text-center mb-16 text-white">
-              How It Works
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-              {[
-                {
-                  step: "1",
-                  title: "Choose a Challenge",
-                  desc: "Pick from hundreds of creative challenges with varying difficulty.",
-                },
-                {
-                  step: "2",
-                  title: "Write Your Prompt",
-                  desc: "Craft prompts with clarity, precision, and creativity.",
-                },
-                {
-                  step: "3",
-                  title: "Get Instant Feedback",
-                  desc: "Receive AI-powered scoring and suggestions to improve.",
-                },
-              ].map((f, i) => (
-                <div
-                  key={i}
-                  className="group relative bg-gray-900/80 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all border border-gray-800 hover:border-purple-500/40"
-                >
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 flex items-center justify-center text-white font-bold text-lg mb-6 shadow-md group-hover:scale-110 transition-transform">
-                    {f.step}
-                  </div>
-                  <h3 className="text-2xl font-semibold mb-3 text-white">
-                    {f.title}
-                  </h3>
-                  <p className="text-gray-400">{f.desc}</p>
-                </div>
-              ))}
-            </div>
+        
+      <section className="py-20 bg-gray-950">
+  <div className="container">
+    <h2 className="text-4xl font-bold text-center mb-16 text-white">
+      How It Works
+    </h2>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+      {[
+        {
+          step: "1",
+          title: "Choose a Challenge",
+          desc: "Pick from hundreds of creative challenges with varying difficulty.",
+        },
+        {
+          step: "2",
+          title: "Write Your Prompt",
+          desc: "Craft prompts with clarity, precision, and creativity.",
+        },
+        {
+          step: "3",
+          title: "Get Instant Feedback",
+          desc: "Receive AI-powered scoring and suggestions to improve.",
+        },
+      ].map((f, i) => (
+        <div
+          key={i}
+          className="group relative bg-gray-900/80 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all border border-gray-800 hover:border-purple-500/40"
+        >
+          <div className="w-14 h-14 rounded-full bg-gradient-to-r from-purple-600 to-pink-500 flex items-center justify-center text-white font-bold text-lg mb-6 shadow-md group-hover:scale-110 transition-transform">
+            {f.step}
           </div>
-        </section>
+          <h3 className="text-2xl font-semibold mb-3 text-white">
+            {f.title}
+          </h3>
+          <p className="text-gray-400">{f.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+                  
+                
 
         {/* Stats */}
         <section className="py-20 bg-gradient-to-r from-purple-900/50 to-pink-900/40">
