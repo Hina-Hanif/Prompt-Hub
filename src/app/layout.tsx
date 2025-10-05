@@ -1,32 +1,43 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
+import localFont from "next/font/local"; // ✅ required for local fonts
 import "./globals.css";
+import type { ReactNode } from "react";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+
+// Use Inter (Google font)
+const inter = Inter({
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
+// Replace Geist_Mono with a local font version (manual)
+const geistMono = localFont({
+  src: [
+    {
+      path: "../../public/fonts/geist/GeistMono-Regular.ttf", // you’ll create this folder below
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/geist/GeistMono-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
   variable: "--font-geist-mono",
-  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Interactive Learning Hub for Prompt Engineering",
-  description: "Practice writing prompts for different LLMs, receive live feedback, and track your progress",
+  title: "Your App",
+  description: "Next.js 14 fixed font setup",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout(props: { children: ReactNode }) {
+  const { children } = props;
+
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background`}
-      >
+      <body>
         {children}
       </body>
     </html>
